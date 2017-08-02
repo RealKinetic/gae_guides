@@ -143,20 +143,10 @@ if not os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine/'):
 
 While this is a viable soltuion it's not one that we generally use. Mostly because it's another requirements file to management. And as you'll see later we'll already be creating a `requirements_dev.txt` file for libraries specific to testing, etc. So how could we leverage using the same `requirements_dev.txt` file here?
 
-First we'll create the separate requirements file named that we name: `requirements_dev.txt`. 
-
-Let's then add a new entry to our Makefile:
+First we'll create the separate requirements file named that we name: `requirements_dev.txt`. Then we can run the install command without passing a target:
 
 ```
-install-dev:
-	pip install -Ur requirements_dev.txt
-```
-
-And let's update our install entry while we're at it:
-
-```
-install: install-dev
-	pip install -Ur requirements.txt -t vendor
+pip install -Ur requirements_dev.txt
 ```
 
 This will run our `install-dev` command as part of our `install` command.
